@@ -13,7 +13,7 @@ describe('Homepage component', () => {
             expect(linkElement).toBeInTheDocument();
         });
 
-        test("it should render list of communities", () => {
+        it("should render list of communities", () => {
             const testRenderer = TestRenderer.create(<App/>);
 
             const communitiesInstance = testRenderer.root;
