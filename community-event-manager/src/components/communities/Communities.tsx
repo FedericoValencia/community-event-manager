@@ -6,24 +6,24 @@ export default function (){
     const [communities, setCommunities] = useState([]);
 
     async function fetchCommunities() {
-        const response = await fetch("/");
+        const response = await fetch("/api/communities");
         setCommunities(await response.json());
     }
 
+    React.useEffect(()=>{
+        fetchCommunities();
+    }, []);
+
     if (!communities) {
-        return "loading...";
+        return <>loading...</>;
     }
 
     return (
-        <React.Fragment>
-            <div>
-
+        <>
             <p>Thoughtworks Communities</p>
-
             { communities.map( (community: any) => {
-                <p>`${community.name}`</p>
-            })}
-            </div>
-        </React.Fragment>
+                return (<p key={community.name}>{community.name}</p>);
+            })}          
+        </>
     );
 }

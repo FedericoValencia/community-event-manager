@@ -22,11 +22,14 @@ describe('Communities component', () => {
                     name : 'DEISCC'
                 }
             ]
-            global.fetch = jest.fn(() =>
+
+            let mockedCommunitiesAPI = jest.fn(() =>
                 Promise.resolve({
                     json: () => Promise.resolve(expectedCommunities),
-                }),
-            ) as jest.Mock;
+                })
+            ) as jest.Mock
+            
+            let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
             let container = document.createElement("div");
             document.body.appendChild(container);
@@ -34,10 +37,12 @@ describe('Communities component', () => {
             await act(async () => {
                 root.render(<Communities />);
             });
+            
             expectedCommunities.forEach((community : any) => {
                 expect(container.textContent).toContain(community.name);
             });
-            
+            expect(fetchMock).toHaveBeenCalledWith('/api/communities');
+            fetchMock.mockRestore();
         });
     }
 );
