@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Communities from "./components/communities/Communities";
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Welcome to community event manager
         </a>
       </header>
+      <Communities/>
     </div>
   );
 }
