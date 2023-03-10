@@ -1,10 +1,24 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import Communities from "./Communities";
 import { act } from "react-dom/test-utils";
 
 describe('Communities component', () => {
+
+        let container: any = null;
+        beforeEach(() => {
+            // setup a DOM element as a render target
+            container = document.createElement("div");
+            document.body.appendChild(container);
+        });
+        
+        afterEach(() => {
+            // cleanup on exiting
+            unmountComponentAtNode(container);
+            container.remove();
+            container = null;
+        });
+
         it('should render Communities title', () => {
             render(<Communities/>);
 
@@ -31,15 +45,13 @@ describe('Communities component', () => {
             
             let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
-            let container = document.createElement("div");
-            document.body.appendChild(container);
-            let root = createRoot(container!);
             await act(async () => {
-                root.render(<Communities />);
+                render(<Communities/>, container);
             });
             
             expectedCommunities.forEach((community : any) => {
-                expect(container.textContent).toContain(community.name);
+                const communityElement = screen.getByText(community.name);
+                expect(communityElement).toBeInTheDocument();
             });
             expect(fetchMock).toHaveBeenCalledWith('/api/communities');
             fetchMock.mockRestore();
