@@ -2,6 +2,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import Communities from "./Communities";
 import { act } from "react-dom/test-utils";
+import { Community } from './Community';
 
 describe('Communities component', () => {
 
@@ -27,7 +28,7 @@ describe('Communities component', () => {
             expect(title).toBeInTheDocument();
         });
 
-        it("it should render list of communities", async () => {
+        it("should render list of communities", async () => {
             const expectedCommunities = [
                 {
                     name : 'Data'
@@ -49,7 +50,7 @@ describe('Communities component', () => {
                 render(<Communities/>, container);
             });
             
-            expectedCommunities.forEach((community : any) => {
+            expectedCommunities.forEach((community : Community) => {
                 const communityElement = screen.getByText(community.name);
                 expect(communityElement).toBeInTheDocument();
             });

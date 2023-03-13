@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Community } from './Community';
 
 export default function (){
 
@@ -21,7 +22,7 @@ export default function (){
     return (
         <>
             <p>Thoughtworks Communities</p>
-            { communities.map( (community: any) => {
+            { communities.map( (community: Community) => {
                 return (<p key={community.name}>{community.name}</p>);
             })}          
         </>
