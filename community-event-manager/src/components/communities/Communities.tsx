@@ -23,7 +23,7 @@ export default function (){
         <>
             <p>Thoughtworks Communities</p>
             { communities.map( (community: Community) => {
-                return (<p key={community.name}>{community.name}</p>);
+                return (<a href={community.uri} key={community.name}>{community.name}</a>);
             })}          
         </>
     );

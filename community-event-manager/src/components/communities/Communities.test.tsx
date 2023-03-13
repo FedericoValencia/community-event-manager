@@ -31,10 +31,12 @@ describe('Communities component', () => {
         it("should render list of communities", async () => {
             const expectedCommunities = [
                 {
-                    name : 'Data'
+                    name : 'Data',
+                    uri: '/communities/data'
                 },
                 {
-                    name : 'DEISCC'
+                    name : 'DEISCC',
+                    uri: '/communities/deiscc'
                 }
             ]
 
@@ -52,7 +54,9 @@ describe('Communities component', () => {
             
             expectedCommunities.forEach((community : Community) => {
                 const communityElement = screen.getByText(community.name);
+                const expectedLinkURI = communityElement.getAttribute('href');
                 expect(communityElement).toBeInTheDocument();
+                expect(expectedLinkURI).toBe(community.uri);
             });
             expect(fetchMock).toHaveBeenCalledWith('/api/communities');
             fetchMock.mockRestore();
