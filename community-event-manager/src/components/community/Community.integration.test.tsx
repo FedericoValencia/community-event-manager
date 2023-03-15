@@ -1,32 +1,56 @@
-import React from "react";
 import App from "../../App";
 import ReactTestUtils from 'react-dom/test-utils'; // ES6
 import {render} from '@testing-library/react';
+import { unmountComponentAtNode } from 'react-dom';
+import { act } from "react-dom/test-utils";
 
-import CommunityDetails from "./CommunityDetails";
-import ReactDOM from "react-dom/client";
+jest.mock("./CommunityDetails", () => () => {
+    return <div data-testid="communityDetails" />;
+});
 
 describe('Community component integration test', () => {
 
 
+    let container: any = null;
+    beforeEach(() => {
+        // setup a DOM element as a render target
+        container = document.createElement("div");
+        document.body.appendChild(container);
+    });
+        
+    afterEach(() => {
+        // cleanup on exiting
+        unmountComponentAtNode(container);
+        container.remove();
+        container = null;
+    });
 
-    it("should navigate to community detail page", () => {
 
-        const domContainer = document.createElement('div');
+    it("should navigate to community detail page", async () => {
 
-        let root1 = ReactDOM.createRoot(domContainer);
-        ReactTestUtils.renderIntoDocument(<App/>);
-        let root = document.createElement(“div”);
-        document.body.appendChild(root);
-        ReactTestUtils.findAllInRenderedTree(App,()=>true);
-        dataCommunityLink = document.querySelector('[href="/community/data"]');
+        const expectedCommunities = [
+            {
+                name : 'Data',
+                uri: '/communities/data'
+            }
+        ];
+
+        let mockedCommunitiesAPI = jest.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve(expectedCommunities),
+            })
+        ) as jest.Mock
+        
+        let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
+
+        await act(async () => {
+            render(<App/>, container);
+        });
+
+        let dataCommunityLink = document.querySelector('[href="/communities/data"]');
+        expect(dataCommunityLink).toBeInTheDocument();
         ReactTestUtils.Simulate.click(dataCommunityLink!);
-
-        ReactTestUtils.findRenderedComponentWithType(root1, CommunityDetails)
-
-        ReactTestUtils.isElementOfType(
-            dataCommunityLink,
-            CommunityDetails
-        )
+        expect(document.querySelector("[data-testid='communityDetails']")).toBeInTheDocument();
+        fetchMock.mockRestore();
     })
 });
