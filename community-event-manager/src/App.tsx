@@ -1,28 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Communities from "./components/communities/Communities";
+import {createBrowserRouter, RouterProvider,} from "react-router-dom";
+import CommunityDetails from "./components/community/CommunityDetails";
+import Home from "./components/home/Home";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Home/>,
+    },
+    {
+        path: "/communities/data",
+        element: <CommunityDetails/>,
+    }
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save treload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Welcome to community event manager
-        </a>
-      </header>
-      <Communities/>
-    </div>
-  );
+    return (
+        <RouterProvider router={router}/>
+    );
 }
 
 export default App;

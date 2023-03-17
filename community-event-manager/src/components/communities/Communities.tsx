@@ -1,8 +1,8 @@
-import React from 'react'
-import { useState } from 'react'
-import { Community } from './Community';
+import React, {useState} from 'react'
+import {Community} from './Community';
+import {Link} from "react-router-dom";
 
-export default function (){
+export default function () {
 
     const [communities, setCommunities] = useState([]);
 
@@ -11,7 +11,7 @@ export default function (){
         setCommunities(await response.json());
     }
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         fetchCommunities();
     }, []);
 
@@ -22,9 +22,9 @@ export default function (){
     return (
         <>
             <p>Thoughtworks Communities</p>
-            { communities.map( (community: Community) => {
-                return (<a href={community.uri} key={community.name}>{community.name}</a>);
-            })}          
+            {communities.map((community: Community) => {
+                return (<Link to={community.uri} key={community.name}>{community.name}</Link>);
+            })}
         </>
     );
 }

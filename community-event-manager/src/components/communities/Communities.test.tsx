@@ -1,8 +1,9 @@
-import { unmountComponentAtNode } from 'react-dom';
-import { render, screen } from '@testing-library/react';
+import {unmountComponentAtNode} from 'react-dom';
+import {render, screen} from '@testing-library/react';
 import Communities from "./Communities";
-import { act } from "react-dom/test-utils";
-import { Community } from './Community';
+import {act} from "react-dom/test-utils";
+import {Community} from './Community';
+import {MemoryRouter} from "react-router-dom";
 
 describe('Communities component', () => {
 
@@ -12,7 +13,7 @@ describe('Communities component', () => {
             container = document.createElement("div");
             document.body.appendChild(container);
         });
-        
+
         afterEach(() => {
             // cleanup on exiting
             unmountComponentAtNode(container);
@@ -31,11 +32,11 @@ describe('Communities component', () => {
         it("should render list of communities", async () => {
             const expectedCommunities = [
                 {
-                    name : 'Data',
+                    name: 'Data',
                     uri: '/communities/data'
                 },
                 {
-                    name : 'DEISCC',
+                    name: 'DEISCC',
                     uri: '/communities/deiscc'
                 }
             ]
@@ -45,14 +46,14 @@ describe('Communities component', () => {
                     json: () => Promise.resolve(expectedCommunities),
                 })
             ) as jest.Mock
-            
+
             let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
             await act(async () => {
-                render(<Communities/>, container);
+                render(<MemoryRouter><Communities/></MemoryRouter>, container);
             });
-            
-            expectedCommunities.forEach((community : Community) => {
+
+            expectedCommunities.forEach((community: Community) => {
                 const communityElement = screen.getByText(community.name);
                 const expectedLinkURI = communityElement.getAttribute('href');
                 expect(communityElement).toBeInTheDocument();

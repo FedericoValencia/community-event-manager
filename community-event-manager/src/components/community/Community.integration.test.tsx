@@ -1,11 +1,10 @@
 import App from "../../App";
-import ReactTestUtils from 'react-dom/test-utils'; // ES6
+import {act} from 'react-dom/test-utils';
 import {render} from '@testing-library/react';
-import { unmountComponentAtNode } from 'react-dom';
-import { act } from "react-dom/test-utils";
+import {unmountComponentAtNode} from 'react-dom';
 
 jest.mock("./CommunityDetails", () => () => {
-    return <div data-testid="communityDetails" />;
+    return <div data-testid="communityDetails"/>;
 });
 
 describe('Community component integration test', () => {
@@ -17,7 +16,7 @@ describe('Community component integration test', () => {
         container = document.createElement("div");
         document.body.appendChild(container);
     });
-        
+
     afterEach(() => {
         // cleanup on exiting
         unmountComponentAtNode(container);
@@ -30,7 +29,7 @@ describe('Community component integration test', () => {
 
         const expectedCommunities = [
             {
-                name : 'Data',
+                name: 'Data',
                 uri: '/communities/data'
             }
         ];
@@ -40,16 +39,18 @@ describe('Community component integration test', () => {
                 json: () => Promise.resolve(expectedCommunities),
             })
         ) as jest.Mock
-        
+
         let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
         await act(async () => {
             render(<App/>, container);
         });
-
         let dataCommunityLink = document.querySelector('[href="/communities/data"]');
         expect(dataCommunityLink).toBeInTheDocument();
-        ReactTestUtils.Simulate.click(dataCommunityLink!);
+
+        await act(async () => {
+            dataCommunityLink!.dispatchEvent(new MouseEvent("click", {bubbles: true}));
+        });
         expect(document.querySelector("[data-testid='communityDetails']")).toBeInTheDocument();
         fetchMock.mockRestore();
     })
