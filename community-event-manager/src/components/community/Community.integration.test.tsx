@@ -3,12 +3,11 @@ import {act} from 'react-dom/test-utils';
 import {render} from '@testing-library/react';
 import {unmountComponentAtNode} from 'react-dom';
 
-jest.mock("./CommunityDetails", () => () => {
+jest.mock("./Community", () => () => {
     return <div data-testid="communityDetails"/>;
 });
 
 describe('Community component integration test', () => {
-
 
     let container: any = null;
     beforeEach(() => {

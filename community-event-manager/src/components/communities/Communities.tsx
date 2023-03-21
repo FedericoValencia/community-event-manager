@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Community} from './Community';
+import {Community} from './model/Community';
 import {Link} from "react-router-dom";
 
 export default function () {

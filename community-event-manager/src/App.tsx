@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {createBrowserRouter, RouterProvider,} from "react-router-dom";
-import CommunityDetails from "./components/community/CommunityDetails";
+import CommunityDetails from "./components/community/Community";
 import Home from "./components/home/Home";
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
         element: <Home/>,
     },
     {
-        path: "/communities/data",
+        path: "/communities/:id",
         element: <CommunityDetails/>,
     }
 ]);

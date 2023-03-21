@@ -2,7 +2,7 @@ import {unmountComponentAtNode} from 'react-dom';
 import {render, screen} from '@testing-library/react';
 import Communities from "./Communities";
 import {act} from "react-dom/test-utils";
-import {Community} from './Community';
+import {Community} from './model/Community';
 import {MemoryRouter} from "react-router-dom";
 
 describe('Communities component', () => {
