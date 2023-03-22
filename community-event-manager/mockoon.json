@@ -1,0 +1,154 @@
+{
+    "uuid": "c843dc4d-3883-4610-8e24-f570ace50d80",
+    "lastMigration": 27,
+    "name": "CommunityManager",
+    "endpointPrefix": "",
+    "latency": 0,
+    "port": 3001,
+    "hostname": "",
+    "folders": [],
+    "routes": [
+        {
+            "uuid": "d39b6c2a-2564-46ed-8871-6e6cf52f6a22",
+            "type": "http",
+            "documentation": "",
+            "method": "get",
+            "endpoint": "api/communities",
+            "responses": [
+                {
+                    "uuid": "9c3810f8-34da-45ff-9d39-0da056a50c24",
+                    "body": "[\n    {\n        \"name\": \"Data\",\n        \"uri\": \"/communities/data\"\n    },\n    {\n        \"name\": \"DEISCC\",\n        \"uri\": \"/communities/deiscc\"\n    }\n]",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "e7478868-ebe6-48e7-84b5-5747a3154dfb",
+            "type": "http",
+            "documentation": "",
+            "method": "get",
+            "endpoint": "api/communities/data",
+            "responses": [
+                {
+                    "uuid": "cc7061cd-5ebc-4827-ac1f-7d6da6e2694e",
+                    "body": "{\n  \"name\": \"Data\"\n}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        },
+        {
+            "uuid": "cc6f2c24-46fa-4a8f-880f-a9d82054d6b4",
+            "type": "http",
+            "documentation": "",
+            "method": "get",
+            "endpoint": "api/communities/deiscc",
+            "responses": [
+                {
+                    "uuid": "e7fa1802-d5f8-4add-bd65-32f0d053f828",
+                    "body": "{\n  \"name\": \"DEISCC\"\n}",
+                    "latency": 0,
+                    "statusCode": 200,
+                    "label": "",
+                    "headers": [],
+                    "bodyType": "INLINE",
+                    "filePath": "",
+                    "databucketID": "",
+                    "sendFileAsBody": false,
+                    "rules": [],
+                    "rulesOperator": "OR",
+                    "disableTemplating": false,
+                    "fallbackTo404": false,
+                    "default": true
+                }
+            ],
+            "enabled": true,
+            "responseMode": null
+        }
+    ],
+    "rootChildren": [
+        {
+            "type": "route",
+            "uuid": "d39b6c2a-2564-46ed-8871-6e6cf52f6a22"
+        },
+        {
+            "type": "route",
+            "uuid": "e7478868-ebe6-48e7-84b5-5747a3154dfb"
+        },
+        {
+            "type": "route",
+            "uuid": "cc6f2c24-46fa-4a8f-880f-a9d82054d6b4"
+        }
+    ],
+    "proxyMode": false,
+    "proxyHost": "",
+    "proxyRemovePrefix": false,
+    "tlsOptions": {
+        "enabled": false,
+        "type": "CERT",
+        "pfxPath": "",
+        "certPath": "",
+        "keyPath": "",
+        "caPath": "",
+        "passphrase": ""
+    },
+    "cors": true,
+    "headers": [
+        {
+            "key": "Content-Type",
+            "value": "application/json"
+        },
+        {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+        },
+        {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+        },
+        {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+        }
+    ],
+    "proxyReqHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "proxyResHeaders": [
+        {
+            "key": "",
+            "value": ""
+        }
+    ],
+    "data": []
+}
