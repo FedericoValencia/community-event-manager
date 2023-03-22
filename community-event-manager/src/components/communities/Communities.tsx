@@ -7,13 +7,14 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 
 import {Community} from './model/Community';
 import {Link} from "react-router-dom";
+import {API_HOST} from '../../configuration/ApiConfiguration'
 
 export default function Communities() {
 
     const [communities, setCommunities] = useState([]);
 
     async function fetchCommunities() {
-        const response = await fetch("http://localhost:3001/api/communities");
+        const response = await fetch(`${API_HOST}/api/communities`);
         setCommunities(await response.json());
     }
 
@@ -37,7 +38,6 @@ export default function Communities() {
                                 <BeachAccessIcon />
                             </Avatar>
                             </ListItemAvatar>
-                            {/* <ListItemText primary="Photos" secondary="Jan 9, 2014" /> */}
                             <Link to={community.uri}>{community.name}</Link>
                         </ListItem>
                     );

@@ -1,6 +1,7 @@
 import {useParams} from "react-router-dom";
 import React, {useState} from "react";
 import {Community as CommunityModel} from "../community/model/Community";
+import {API_HOST} from '../../configuration/ApiConfiguration'
 
 type Params = {
     id: string;
@@ -12,7 +13,7 @@ export default function Community() {
     const [community, setCommunity] = useState<CommunityModel>();
 
     async function fetchCommunity(id: string) {
-        const response = await fetch(`http://localhost:3001/api/communities/${id}`);
+        const response = await fetch(`${API_HOST}/api/communities/${id}`);
         setCommunity(await response.json());
     }
 
