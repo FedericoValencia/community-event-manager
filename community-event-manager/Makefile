@@ -2,7 +2,7 @@ runTests:
 	npm test
 
 mockApi:
-	REACT_APP_API_HOST=http://localhost:3001
+	docker run -d --mount type=bind,source=$(abspath $(CURDIR))/mockoon.json,target=/data,readonly -p 3001:3001 mockoon/cli:latest --data data --port 3001
 
 startLocal: mockApi
 	npm start
