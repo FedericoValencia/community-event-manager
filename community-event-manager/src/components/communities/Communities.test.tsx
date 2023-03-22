@@ -59,7 +59,7 @@ describe('Communities component', () => {
                 expect(communityElement).toBeInTheDocument();
                 expect(expectedLinkURI).toBe(community.uri);
             });
-            expect(fetchMock).toHaveBeenCalledWith('/api/communities');
+            expect(fetchMock).toHaveBeenCalledWith('http://localhost:3001/api/communities');
             fetchMock.mockRestore();
         });
     }

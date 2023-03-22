@@ -30,7 +30,7 @@ describe('Community in detail component', () => {
 
         const title = screen.getByText(/Data Community/i);
         expect(title).toBeInTheDocument();
-        expect(fetchMock).toHaveBeenCalledWith('/api/communities/data');
+        expect(fetchMock).toHaveBeenCalledWith('http://localhost:3001/api/communities/data');
         fetchMock.mockRestore();
     });
 
