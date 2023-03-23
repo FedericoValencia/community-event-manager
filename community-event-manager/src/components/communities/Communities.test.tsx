@@ -1,7 +1,6 @@
 import {unmountComponentAtNode} from 'react-dom';
-import {render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import Communities from "./Communities";
-import {act} from "react-dom/test-utils";
 import {Community} from './model/Community';
 import {MemoryRouter} from "react-router-dom";
 
@@ -49,16 +48,19 @@ describe('Communities component', () => {
 
             let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
-            await act(async () => {
-                render(<MemoryRouter><Communities/></MemoryRouter>, container);
-            });
-
-            expectedCommunities.forEach((community: Community) => {
-                const communityElement = screen.getByText(community.name);
-                const expectedLinkURI = communityElement.getAttribute('href');
+            render(<MemoryRouter><Communities/></MemoryRouter>, container);
+            
+            expectedCommunities.forEach( async (community: Community) => {
+                const communityElement = await waitFor(() => {
+                    return screen.getByText(community.name); 
+                });
                 expect(communityElement).toBeInTheDocument();
+                const expectedLinkURI = communityElement.getAttribute('href');
                 expect(expectedLinkURI).toBe(community.uri);
             });
+           
+
+            
             expect(fetchMock).toHaveBeenCalledWith('http://localhost:3001/api/communities');
             fetchMock.mockRestore();
         });

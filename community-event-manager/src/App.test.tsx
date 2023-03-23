@@ -17,7 +17,8 @@ describe('Homepage component', () => {
             const testRenderer = TestRenderer.create(<App/>);
 
             const communitiesInstance = testRenderer.root;
-            communitiesInstance.findByType(Communities);
+            const communityComponent = communitiesInstance.findByType(Communities);
+            expect(communityComponent).toBeTruthy();
         });
     }
 );
