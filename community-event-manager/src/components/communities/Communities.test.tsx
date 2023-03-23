@@ -40,18 +40,18 @@ describe('Communities component', () => {
                 }
             ]
 
-            let mockedCommunitiesAPI = jest.fn(() =>
+            const mockedCommunitiesAPI = jest.fn(() =>
                 Promise.resolve({
                     json: () => Promise.resolve(expectedCommunities),
                 })
             ) as jest.Mock
 
-            let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
+            const fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
             render(<MemoryRouter><Communities/></MemoryRouter>, container);
             
             expectedCommunities.forEach( async (community: Community) => {
-                const communityElement = await waitFor(() => {
+                const communityElement: HTMLElement = await waitFor(() => {
                     return screen.getByText(community.name); 
                 });
                 expect(communityElement).toBeInTheDocument();

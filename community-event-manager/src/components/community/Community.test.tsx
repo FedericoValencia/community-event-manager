@@ -10,12 +10,12 @@ describe('Community in detail component', () => {
         const expectedCommunity = {
             name: 'Data Community',
         };
-        let mockedCommunitiesAPI = jest.fn(() =>
+        const mockedCommunitiesAPI = jest.fn(() =>
             Promise.resolve({
                 json: () => Promise.resolve(expectedCommunity),
             })
         ) as jest.Mock
-        let fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
+        const fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
         await act(async () => {
             render(<MemoryRouter initialEntries={["/communities/data"]}>

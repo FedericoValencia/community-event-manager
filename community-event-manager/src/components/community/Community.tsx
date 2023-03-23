@@ -18,7 +18,9 @@ export default function Community() {
     }
 
     React.useEffect(() => {
-        fetchCommunity(id!);
+        if(id) {
+            fetchCommunity(id);
+        }
     }, [id]);
 
     if (!community) {
