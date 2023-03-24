@@ -23,7 +23,6 @@ describe('Community component integration test', () => {
         container = null;
     });
 
-
     it("should navigate to community detail page", async () => {
 
         const expectedCommunities = [
@@ -32,15 +31,12 @@ describe('Community component integration test', () => {
                 uri: '/communities/data'
             }
         ];
-
         const mockedCommunitiesAPI = jest.fn(() =>
             Promise.resolve({
                 json: () => Promise.resolve(expectedCommunities),
             })
         ) as jest.Mock
-
         const fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
-
         await act(async () => {
             render(<App/>, container);
         });
@@ -50,6 +46,7 @@ describe('Community component integration test', () => {
         await act(async () => {
             dataCommunityLink!.dispatchEvent(new MouseEvent("click", {bubbles: true}));
         });
+
         expect(document.querySelector("[data-testid='communityDetails']")).toBeInTheDocument();
         fetchMock.mockRestore();
     })

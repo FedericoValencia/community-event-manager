@@ -26,6 +26,17 @@ describe('Communities component', () => {
             container = null;
         });
 
+        async function expectCommunitiesToBeRender(expectedCommunities: ({ name: string; uri: string } | { name: string; uri: string })[]) {
+            for (const community of expectedCommunities) {
+                const communityElement: HTMLElement = await waitFor(() => {
+                    return screen.getByText(community.name);
+                });
+                expect(communityElement).toBeInTheDocument();
+                const expectedLinkURI = communityElement.getAttribute('href');
+                expect(expectedLinkURI).toBe(community.uri);
+            }
+        }
+
         it('should render Communities title', () => {
             render(<Communities/>);
 
@@ -45,27 +56,16 @@ describe('Communities component', () => {
                     uri: '/communities/deiscc'
                 }
             ]
-
             const mockedCommunitiesAPI = jest.fn(() =>
                 Promise.resolve({
                     json: () => Promise.resolve(expectedCommunities),
                 })
             ) as jest.Mock
-
             const fetchMock = jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
             render(<MemoryRouter><Communities/></MemoryRouter>, container);
 
-            for (const community of expectedCommunities) {
-                const communityElement: HTMLElement = await waitFor(() => {
-                    return screen.getByText(community.name);
-                });
-                expect(communityElement).toBeInTheDocument();
-                const expectedLinkURI = communityElement.getAttribute('href');
-                expect(expectedLinkURI).toBe(community.uri);
-            }
-
-
+            await expectCommunitiesToBeRender(expectedCommunities);
             expect(fetchMock).toHaveBeenCalledWith('http://localhost:3001/api/communities');
             fetchMock.mockRestore();
         });
