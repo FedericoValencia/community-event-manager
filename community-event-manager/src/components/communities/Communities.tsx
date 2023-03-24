@@ -8,10 +8,12 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import {Community} from './model/Community';
 import {Link} from "react-router-dom";
 import {API_HOST} from '../../configuration/ApiConfiguration'
+import CreateCommunity from "../create-community/CreateCommunity";
 
 export default function Communities() {
 
     const [communities, setCommunities] = useState([]);
+    const [showCommunityWindow, setShowCommunityWindow] = useState(false);
 
     async function fetchCommunities() {
         const response = await fetch(`${API_HOST}/api/communities`);
@@ -26,9 +28,14 @@ export default function Communities() {
         return <>loading...</>;
     }
 
+    function createCommunity() {
+        setShowCommunityWindow(true);
+    }
+
     return (
         <>
             <p>Thoughtworks Communities</p>
+            <button onClick={createCommunity}>Create community</button>
             <List sx={{ width: '100%', maxWidth: 360}}>
                 {communities.map((community: Community) => {
                     return (
@@ -44,6 +51,10 @@ export default function Communities() {
                 })}
                 
             </List>
+
+            {showCommunityWindow &&
+            <CreateCommunity/>
+            }
         </>
     );
 }
