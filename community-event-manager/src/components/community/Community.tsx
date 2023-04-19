@@ -29,5 +29,6 @@ export default function Community() {
 
     return <>
         <p>{community.name}</p>
+        <p>{community.event}</p>
     </>
 }
