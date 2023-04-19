@@ -45,7 +45,7 @@
             "responses": [
                 {
                     "uuid": "cc7061cd-5ebc-4827-ac1f-7d6da6e2694e",
-                    "body": "{\n  \"name\": \"Data\"\n}",
+                    "body": "{\n  \"name\": \"Data\",\n  \"events\": [\"Event 1\", \"Event 2\"]\n}",
                     "latency": 0,
                     "statusCode": 200,
                     "label": "",
@@ -73,7 +73,7 @@
             "responses": [
                 {
                     "uuid": "e7fa1802-d5f8-4add-bd65-32f0d053f828",
-                    "body": "{\n  \"name\": \"DEISCC\"\n}",
+                    "body": "{\n  \"name\": \"DEISCC\",\n  \"events\": [\"Event 1\", \"Event 2\"]\n}",
                     "latency": 0,
                     "statusCode": 200,
                     "label": "",
