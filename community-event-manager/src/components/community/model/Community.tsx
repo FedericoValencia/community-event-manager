@@ -1,4 +1,4 @@
 export interface Community {
     name: string;
-    event: string;
+    events: string [];
 }

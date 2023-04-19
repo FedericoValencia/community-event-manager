@@ -38,7 +38,7 @@ describe('Community in detail component', () => {
     it('should render the Community events', async () => {
         const expectedCommunity = {
             name: 'Data Community',
-            event: 'Event 1'
+            events: ['Event 1', 'Event 2']
         };
         const mockedCommunitiesAPI = jest.fn(() =>
             Promise.resolve({
@@ -51,8 +51,9 @@ describe('Community in detail component', () => {
             render(<Community/>);
         });
 
-        const event = screen.getByText('Event 1');
-        expect(event).toBeInTheDocument();
+        const [event1, event2] = screen.getAllByRole('listitem');
+        expect(event1).toHaveTextContent("Event 1")
+        expect(event2).toHaveTextContent("Event 2")
     });
 
 });

@@ -2,6 +2,8 @@ import {useParams} from "react-router-dom";
 import React, {useState} from "react";
 import {Community as CommunityModel} from "../community/model/Community";
 import {API_HOST} from '../../configuration/ApiConfiguration'
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 
 type Params = {
     id: string;
@@ -18,7 +20,7 @@ export default function Community() {
     }
 
     React.useEffect(() => {
-        if(id) {
+        if (id) {
             fetchCommunity(id);
         }
     }, [id]);
@@ -29,6 +31,14 @@ export default function Community() {
 
     return <>
         <p>{community.name}</p>
-        <p>{community.event}</p>
+        <List sx={{width: '100%', maxWidth: 360}}>
+            {community.events.map((event: string) => {
+                return (
+                    <ListItem key={event}>
+                        {event}
+                    </ListItem>
+                )
+            })}
+        </List>
     </>
 }
