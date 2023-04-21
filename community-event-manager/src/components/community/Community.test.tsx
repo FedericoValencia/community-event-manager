@@ -12,18 +12,23 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Community in detail component', () => {
+    const expectedCommunity = {
+        name: 'Data Community',
+        events: ['Event 1', 'Event 2']
+    };
+
+    beforeEach(() => {
+        const mockedCommunitiesAPI = jest.fn(() =>
+        Promise.resolve({
+            json: () => Promise.resolve(expectedCommunity),
+        })
+    ) as jest.Mock
+       
+        jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
+    });
+
 
     it('should render title and  the Community events', async () => {
-        const expectedCommunity = {
-            name: 'Data Community',
-            events: ['Event 1', 'Event 2']
-        };
-        const mockedCommunitiesAPI = jest.fn(() =>
-            Promise.resolve({
-                json: () => Promise.resolve(expectedCommunity),
-            })
-        ) as jest.Mock
-        jest.spyOn(global, "fetch").mockImplementation(mockedCommunitiesAPI);
 
         await act(async () => {
             render(<Community/>);
@@ -34,6 +39,17 @@ describe('Community in detail component', () => {
         const [event1, event2] = screen.getAllByRole('listitem');
         expect(event1).toHaveTextContent("Event 1")
         expect(event2).toHaveTextContent("Event 2")
+    });
+
+    it('should render a button to create an event', async () => {
+
+        await act(async () => {
+            render(<Community/>);
+        });
+
+        const createEventButton = screen.getByRole('button');
+        expect(createEventButton).toBeInTheDocument();
+
     });
 
 });

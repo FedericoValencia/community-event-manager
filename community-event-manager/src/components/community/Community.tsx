@@ -31,6 +31,7 @@ export default function Community() {
 
     return <>
         <p>{community.name}</p>
+        <button>create event</button>
         <List sx={{width: '100%', maxWidth: 360}}>
             {community.events.map((event: string) => {
                 return (
